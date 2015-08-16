@@ -1,50 +1,38 @@
 import se.rubble.SudokuMatrix;
 
 public class SudokuSolver {
+
+    private final SudokuMatrix matrix;
+
+
+
+    public SudokuSolver() {
+        Integer[][] integers = {
+                {null, 6, 9, null, null, 3, null, 1, null},
+                {null, null, 2, 6, 5, 4, null, null, null},
+                {null, null, 3, null, null, null, 6, 2, 8},
+                {1, null, null, 2, null, null, 5, 9, null},
+                {null, 7, 5, null, 3, 9, null, 8, null},
+                {null, 2, null, null, null, 5, null, null, 4},
+                {null, null, 6, null, null, null, null, null, 1},
+                {null, 4, null, 5, 6, null, 7, null, 9},
+                {null, 9, 7, 1, 4, null, null, null, null},
+        };
+
+        this.matrix = new SudokuMatrix(integers);
+    }
+
     public static void main(String[] args) {
         new SudokuSolver().solve();
     }
 
     private void solve() {
-        SudokuMatrix matrix = new SudokuMatrix();
 
         System.out.println(matrix);
+       matrix.solve();
 
-        System.out.println(matrix.row(0).contains(5));
-        System.out.println(matrix.col(1).contains(1));
-        System.out.println(matrix.subMatrix(0, 0));
-        System.out.println(matrix.subMatrix(0, 0).contains(9));
+        //System.out.println(matrix.row(0).contains(5));
 
-//        for(int val = 1; val < 10; val++){
-//            for(int row = 0; row < 9; row++){
-//                for(int col = 0; col < 9; col++){
-//                    if(!matrix.row(row).contains(val)
-//                            && !matrix.col(col).contains(val)
-//                            && !matrix.subMatrix(row%3,col%3).contains(val)
-//                            && matrix.get(row,col) == null){
-//                        matrix.set(row,col,val);
-//                    }
-//                }
-//            }
-//        }
-
-        for(int row = 0; row <9; row++){
-            for(int col = 0; col < 9; col++){
-                if(matrix.get(row, col) == null){
-                    for(int val = 1; val < 10; val++){
-                        if(!matrix.row(row).contains(val)
-                            && !matrix.col(col).contains(val)
-                            && !matrix.subMatrix(row%3,col%3).contains(val)){
-                            matrix.set(row,col,val);
-                            break;
-                        }else {
-                            if (val == 9) System.out.println(String.format("No valid options for(row,col): %d,%d",row,col));
-                        }
-                    }
-                }
-            }
-        }
-
-        System.out.println(matrix);
+        System.out.println(matrix.asIntMatrix());
     }
 }
